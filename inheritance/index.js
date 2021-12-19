@@ -60,8 +60,11 @@ class IntBuilder extends Builder {
     }
 }
 
-function StringBuilder(arg = '') {
+function StringBuilder(arg) {
     Builder.call(this, arg);
+    if(this.arg === undefined) {
+        this.arg = '';
+    }
     this.remove = function(str) {
         this.arr.push({method:'remove', arg:str});
         return this;
