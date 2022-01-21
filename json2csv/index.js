@@ -1,9 +1,5 @@
-const argv = require('yargs').argv;
-
-const inputFileName = argv._[0];
-const outputFileName = argv._[1];
-
-console.log(inputFileName, outputFileName);
+const inputFileName = process.argv[2]; 
+const outputFileName = process.argv[3];
 
 const { readFile, writeFile } = require('fs').promises;
 
@@ -18,14 +14,29 @@ async function parseJSONFile (fileName) {
   }
 
   function arrayToCSV (data) {
-    csv = data.map(row => Object.values(row));
-    csv.unshift(Object.keys(data[0]));
-    return csv.join('\n');
+    let result = [];
+    result.push(Object.keys(data[0]));
+    result.push(Object.values(data[0]));
+    data.shift();
+
+    for (let i = 0; i < data.length; i++) {
+      let arr = [];
+      for (let j = 0; j < result[0].length; j++) {
+        const key = result[0][j];
+        if(data[i][key]) {
+          arr.push(data[i][key]);
+        } else {
+          arr.push('');
+       }
+      }
+      result.push(arr);
+    }
+    return result.join('\n');  
   }
 
   async function writeCSV (fileName, data) {
     try {
-        await writeFile(fileName, data, 'utf8'); 
+      await writeFile(fileName, data, 'utf8'); 
     } catch (err) {
       console.log(err);
       process.exit(1);
