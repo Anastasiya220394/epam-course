@@ -1,6 +1,5 @@
 const { readFile, writeFile } = require('fs').promises;
-const inputFileName = process.argv[2]; 
-const outputFileName = process.argv[3];
+const [inputFileName, outputFileName] = [process.argv[2], process.argv[3]];
 
 interface IObject {
   [key: string]: string;
