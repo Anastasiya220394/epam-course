@@ -24,24 +24,34 @@ Builder.prototype = {
     },
     get() {
         throw new Error("not implemented"); 
+    },
+    remove(str) {
+        this.arr.push({method:'remove', arg:str});
+        return this;
+    },
+    sub(from, n) {
+        this.arr.push({method:'sub', arg:from, arg2:n});
+        return this;
+    },
+    mod(n) {
+        this.arr.push({method:'mod', arg:n});
+        return this;
     }
 }
 
 class IntBuilder extends Builder {
     constructor(arg = 0) {
         super(arg);
-    };
-    mod(n) {
-        this.arr.push({method:'mod', arg:n});
-        return this;
     }
     get() {
-        for(let i=0; i < this.arr.length; i++) {
+        for(let i = 0; i < this.arr.length; i++) {
             if(this.arr[i].method === 'plus') {
-                this.arg += this.arr[i].arg.reduce(function(a,b){return(a+b)});
+                this.arg += this.arr[i].arg
+                .reduce((a,b) => a + b);
             }
             if(this.arr[i].method === 'minus') {
-                this.arg -= this.arr[i].arg.reduce(function(a,b){return(a+b)});
+                this.arg -= this.arr[i].arg
+                .reduce((a,b) => a + b);
             }
             if(this.arr[i].method === 'multiply') {
                 this.arg = this.arg * this.arr[i].arg;
@@ -65,18 +75,11 @@ function StringBuilder(arg) {
     if(this.arg === undefined) {
         this.arg = '';
     }
-    this.remove = function(str) {
-        this.arr.push({method:'remove', arg:str});
-        return this;
-    }
-    this.sub = function(from, n) {
-        this.arr.push({method:'sub', arg:from, arg2:n});
-        return this;
-    }
     this.get = function() {
         for(let i=0; i < this.arr.length; i++) {
             if(this.arr[i].method === 'plus') {
-                this.arg += this.arr[i].arg.reduce(function(a,b){return(a+b)});
+                this.arg += this.arr[i].arg
+                .reduce((a,b) => a + b);
             }
             if(this.arr[i].method === 'minus') {
                 this.arg = this.arg.slice(0, -this.arr[i].arg);
