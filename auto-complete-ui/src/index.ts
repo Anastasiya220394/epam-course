@@ -3,6 +3,7 @@ import {array} from "./cities";
 
 const body = document.querySelector("body") as HTMLBodyElement;
 const input = document.createElement("input") as HTMLInputElement;
+const fragment = document.createDocumentFragment();
 input.placeholder = "Enter the word to search";
 body.append(input);
 const container = document.createElement("ul") as HTMLUListElement;
@@ -17,8 +18,9 @@ function displayHtml(array:(string)[]) {
   for (let i = 0; i < array.length; i++) {
     const li = document.createElement("li") as HTMLLIElement;
     li.textContent = array[i];
-    container.append(li);
+    fragment.append(li);
   }
+  container.appendChild(fragment);
 }
 
 function firstLoad():void {
