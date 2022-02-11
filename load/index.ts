@@ -2,9 +2,11 @@ interface ICustomResponse extends XMLHttpRequest {
   readonly response: Response;
 }
 
+type BodyType = string | Blob | Int8Array | Document;
+
 interface IObject {
   method?: string;
-  body?: BodyInit | object | null;
+  body?: BodyType;
   responseType?: XMLHttpRequestResponseType;
   signal?: AbortSignal;
 }
@@ -12,7 +14,6 @@ interface IObject {
 function load(url:string, obj:IObject = { method: '', body: '', responseType: '' }) {
   return new Promise((resolve, reject) => {
     const method = obj.method || 'GET';
-    const body = obj.body || '';
     const responseType = obj.responseType || 'json';
 
     const xhr:ICustomResponse = new XMLHttpRequest();
@@ -46,10 +47,6 @@ function load(url:string, obj:IObject = { method: '', body: '', responseType: ''
       });
     }
 
-    if (method === 'DELETE') {
-      xhr.send();
-    } else {
-      xhr.send(JSON.stringify(body));
-    }
+    xhr.send(obj.body);
   });
 }

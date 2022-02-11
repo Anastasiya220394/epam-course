@@ -9,11 +9,9 @@
       "suppressImplicitAnyIndexErrors": true,
       "sourceMap": true,
       "declaration": true,
-      "moduleResolution": "node",
-      "outDir": "./dist",
       "target": "es2015"
     },
     "files": [
       "./index.ts"
     ]
-  }
+}
