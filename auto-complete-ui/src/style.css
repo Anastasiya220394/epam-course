@@ -1,0 +1,23 @@
+body {
+  margin: 5% 10%;
+  background: #52483470;
+}
+input {
+  width: 200px;
+  padding: 5px 20px;
+}
+ul {
+  width: 203px;
+  height: 300px;
+  overflow: auto;
+  margin: 0;
+  background-color: white;
+  padding: 20px;
+}
+li {
+  padding: 10px;
+  list-style-type: none;
+}
+li:hover {
+  background: #ccc;
+}
