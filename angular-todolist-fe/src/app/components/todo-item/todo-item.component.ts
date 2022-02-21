@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { TodoService } from '../../services/todo.service';
+import { TodoService } from '../../services/todo/todo.service';
 
 import { Todo } from 'src/app/models/Todo';
 
@@ -9,31 +9,31 @@ import { Todo } from 'src/app/models/Todo';
   styleUrls: ['./todo-item.component.css']
 })
 export class TodoItemComponent implements OnInit {
+
+  constructor(private todoService: TodoService) { }
   @Input() todo: Todo;
   @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter();
   @Output() editTodo: EventEmitter<Todo> = new EventEmitter();
 
-  constructor(private todoService:TodoService) { }
+  editable = false;
 
   ngOnInit() {
   }
-  editable = false;
 
-  onToggle(todo:Todo) {
-    // Toggle in UI
-    todo.completed = !todo.completed;
-    // Toggle on server
-    this.todoService.toggleCompleted(todo).subscribe(todo => console.log(todo));
+  onToggle(todo: Todo) {
+    this.todoService.toggleCompleted(todo).
+    subscribe(() => todo.completed = !todo.completed);
   }
 
-  onDelete(todo:Todo) {
+  onDelete(todo: Todo) {
     this.deleteTodo.emit(todo);
   }
-  
-  onEdit(todo:Todo, title:string) {
-    this.editable = false;
-    this.todo.title = title;
-    this.todoService.editTodo(todo).subscribe(todo => console.log(todo));
+
+  onEdit(todo: Todo, title: string) {
+    this.todoService.editTodo(todo).subscribe(() => {
+      this.todo.title = title;
+      this.editable = false;
+    });
   }
 
 }

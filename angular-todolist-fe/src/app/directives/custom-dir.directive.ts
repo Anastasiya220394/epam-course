@@ -6,13 +6,11 @@ import { Directive, ElementRef, Input } from '@angular/core';
 export class CustomDirDirective {
 
   constructor(private elementRef: ElementRef) {}
-  @Input('appCustomDir') set flag (bool:boolean) {
+  @Input('appCustomDir') set flag (bool: boolean) {
     if (bool) {
-      this.elementRef.nativeElement.style.textDecoration = "line-through";
+      this.elementRef.nativeElement.style.textDecoration = 'line-through';
     } else {
-      this.elementRef.nativeElement.style.textDecoration = "none";
+      this.elementRef.nativeElement.style.textDecoration = 'none';
     }
   }
 }
-
-

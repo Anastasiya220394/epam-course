@@ -10,5 +10,3 @@ export class FormatPipePipe implements PipeTransform {
   }
 
 }
-
-
