@@ -2,6 +2,7 @@ const { Router } = require('express');
 const Todo = require('../models/Todo');
 const router = Router();
 
+
 router.post('/todos', async (req: any, res: any) => {
     try {
         const {title} = req.body;
@@ -13,9 +14,21 @@ router.post('/todos', async (req: any, res: any) => {
     }
 })
 
-/*router.get('/todos', async (req: any, res: any) => {
-    
-})*/
+router.get('',async (req:any,res:any)=> {
+    try {
+      const queryLimit = req.query.limit  
+      const queryPage = req.query.page
+      const todo = await Todo
+        .find()
+        .skip(queryPage*queryLimit)
+        .limit(queryLimit)
+      res.status(200)
+      res.send(todo)
+    }
+    catch (err) {
+      res.status(500)
+    }
+  })
 
 module.exports = router;
 
