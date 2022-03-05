@@ -1,7 +1,16 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from "mongoose";
+import { ObjectId } from "mongodb";
 
 const schema = new Schema({
-    todo: {type: String, required: true}
-})
+  title: {
+    type: String,
+    required: true,
+  },
+  completed: {
+    type: Boolean,
+    required: true,
+  },
+  id: ObjectId,
+});
 
-module.exports = model('todo', schema)
+export default model("todo", schema);

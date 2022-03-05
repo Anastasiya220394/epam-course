@@ -1,4 +1,0 @@
-{
-    "port": 5000,
-    "mongoUrl": "mongodb+srv://anonim22:Anonim-22@cluster0.kmhcc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-}
